@@ -66,7 +66,7 @@ validation_generator = generator(validation_samples, batch_size=batch_size)
 #ch, row, col = 3, 80, 320  # Trimmed image format
 
 model = Sequential()
-model.add(Cropping2D(cropping=(55,25), input_shape=(160, 320, 3)))
+model.add(Cropping2D(cropping=((55,25), (0, 0)), input_shape=(160, 320, 3)))
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(80, 320, 3)))
 model.add(Convolution2D(6, 5, 5, activation='relu'))
 model.add(MaxPooling2D())
