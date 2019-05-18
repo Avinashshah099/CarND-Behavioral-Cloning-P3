@@ -1,4 +1,6 @@
+
 data/
 .vscode/
 .idea/
 ignore*
+!driving_log.csv
