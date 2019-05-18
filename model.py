@@ -57,7 +57,7 @@ def generator(samples, batch_size=32):
             yield sklearn.utils.shuffle(X_train, y_train)
 
 # Set our batch size
-batch_size=32
+batch_size=8
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=batch_size)
