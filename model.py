@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from normalization import Normalization
 
 samples = []
-for i in range(0,2):
+for i in range(0,3):
     with open('./data/track'+str(i)+'/driving_log.csv') as csvfile:
         reader = csv.reader(csvfile)
         for sample in reader:
@@ -81,6 +81,6 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
-model.fit_generator(train_generator, steps_per_epoch=ceil(len(train_samples)/batch_size), validation_data=validation_generator, validation_steps=ceil(len(validation_samples)/batch_size), epochs=2, verbose=1)
+model.fit_generator(train_generator, steps_per_epoch=ceil(len(train_samples)/batch_size), validation_data=validation_generator, validation_steps=ceil(len(validation_samples)/batch_size), epochs=2, verbose=1, workers=4, use_multiprocessing=True)
 model.save('model.h5')
 
