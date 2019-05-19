@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from normalization import Normalization
 
 samples = []
-for i in range(1,2):
+for i in range(3,4):
     with open('./data/track'+str(i)+'/driving_log.csv') as csvfile:
         reader = csv.reader(csvfile)
         for sample in reader:
