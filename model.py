@@ -2,13 +2,13 @@ import csv
 import cv2
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Convolution2D, MaxPooling2D, Cropping2D
+from keras.layers import Flatten, Dense, Lambda, Conv2D, MaxPooling2D, Cropping2D
 from sklearn.model_selection import train_test_split
 import sklearn
 from math import ceil
 from random import shuffle
 import matplotlib.pyplot as plt
-
+from normalization import Normalization
 
 samples = []
 for i in range(1,3):
@@ -67,10 +67,11 @@ validation_generator = generator(validation_samples, batch_size=batch_size)
 
 model = Sequential()
 model.add(Cropping2D(cropping=((55,25), (0, 0)), input_shape=(160, 320, 3)))
-model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(80, 320, 3)))
-model.add(Convolution2D(6, 5, 5, activation='relu'))
+#model.add(Lambda(lambda x: normalization, input_shape=(80, 320, 3)))
+model.add(Normalization())
+model.add(Conv2D(6, (5, 5), activation='relu'))
 model.add(MaxPooling2D())
-model.add(Convolution2D(6, 5, 5, activation='relu'))
+model.add(Conv2D(6, (5, 5), activation='relu'))
 model.add(MaxPooling2D())
 model.add(Flatten())
 model.add(Dense(120))
