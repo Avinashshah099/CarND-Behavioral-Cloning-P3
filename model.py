@@ -57,7 +57,7 @@ def generator(samples, batch_size=32):
             yield sklearn.utils.shuffle(X_train, y_train)
 
 # Set our batch size
-batch_size=8
+batch_size=16
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=batch_size)
@@ -70,9 +70,9 @@ model.add(Cropping2D(cropping=((55,25), (0, 0)), input_shape=(160, 320, 3)))
 #model.add(Lambda(lambda x: normalization, input_shape=(80, 320, 3)))
 model.add(Normalization())
 
-model.add(Conv2D(24, (5, 5), subsample=(2,2), activation='relu'))
-model.add(Conv2D(36, (5, 5), subsample=(2,2), activation='relu'))
-model.add(Conv2D(48, (5, 5), subsample=(2,2), activation='relu'))
+model.add(Conv2D(24, (5, 5), strides=(2,2), activation='relu'))
+model.add(Conv2D(36, (5, 5), strides=(2,2), activation='relu'))
+model.add(Conv2D(48, (5, 5), strides=(2,2), activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Flatten())
