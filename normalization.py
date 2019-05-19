@@ -4,5 +4,4 @@ import tensorflow as tf
 
 class Normalization(Layer):
     def call(self, x):
-        mean, var = tf.nn.moments(x, axes=[0])
-        return (x - mean)/var
+        return x/127.5 - 1.0
