@@ -32,6 +32,7 @@ def generator(samples, batch_size=32):
             angles = []
             for batch_sample in batch_samples:
                 image = cv2.imread(batch_sample[0])
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 angle = float(batch_sample[3])
                 images.append(image)
                 angles.append(angle)
@@ -39,6 +40,7 @@ def generator(samples, batch_size=32):
                 angles.append(-angle)
 
                 image = cv2.imread(batch_sample[1])
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 angle = float(batch_sample[3]) + correction
                 images.append(image)
                 angles.append(angle)
@@ -46,6 +48,7 @@ def generator(samples, batch_size=32):
                 angles.append(-angle)
 
                 image = cv2.imread(batch_sample[2])
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 angle = float(batch_sample[3]) - correction
                 images.append(image)
                 angles.append(angle)
@@ -80,10 +83,12 @@ model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Flatten())
 model.add(Dense(100))
+#model.add(Droput(0.5))
 model.add(Dense(50))
+#model.add(Droput(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
-model.compile(loss='mse', optimizer='adam')
+model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
 model.fit_generator(train_generator, steps_per_epoch=ceil(len(train_samples)/batch_size),
 validation_data=validation_generator, validation_steps=ceil(len(validation_samples)/batch_size),
 epochs=5, verbose=1, callbacks=[model_checkpoint])
