@@ -1,6 +1,7 @@
+data
 data/
 .vscode/
 .idea/
 ignore*
-!driving_log.csv
 __pycache__/
+*.tar.gz
