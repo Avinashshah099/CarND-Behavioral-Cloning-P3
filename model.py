@@ -11,16 +11,11 @@ import matplotlib.pyplot as plt
 from normalization import Normalization
 
 samples = []
-for i in range(1,3):
+for i in range(1,2):
     with open('./data/track'+str(i)+'/driving_log.csv') as csvfile:
         reader = csv.reader(csvfile)
         for sample in reader:
             samples.append(sample)
-
-with open('./data/track1/driving_log.csv') as csvfile:
-    reader = csv.reader(csvfile)
-    for sample in reader:
-        samples.append(sample)
 
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
