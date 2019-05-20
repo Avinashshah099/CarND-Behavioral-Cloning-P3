@@ -113,7 +113,7 @@ To augment the data set, I also flipped images and angles thinking that this wou
 | Normal              | Horizontally Flipped |
 |:-------------------:|:--------------------:|
 | ![alt text][image3] | ![alt text][image8]  |
-| ![alt text][image6] | ![alt text][image7]  |
+| ![alt text][image6] | ![alt text][image9]  |
 
 
 After the collection process, I had 170304 number of data points. I then preprocessed this data by cropping the images by (55,25) pixes from (top,bottom) and normalizing with `x/127.5 - 1.0` formula.
