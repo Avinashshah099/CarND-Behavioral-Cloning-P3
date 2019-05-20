@@ -1,0 +1,44 @@
+Using TensorFlow backend.
+Train set size: 22707 (80%)
+Validation set size: 5677 (20%)
+Total size: 28384 (100%)
+Total train images number: 136242 (80%)
+Total validation images nimber: 34062 (20%)
+Total images number: 170304 (100%)
+Epoch 1/5
+2019-05-20 20:36:26.099346: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:931] ARM64 does not support NUMA - returning NUMA node zero
+2019-05-20 20:36:26.099534: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: NVIDIA Tegra X1 major: 5 minor: 3 memoryClockRate(GHz): 0.9984
+pciBusID: 0000:00:00.0
+totalMemory: 3.89GiB freeMemory: 2.71GiB
+2019-05-20 20:36:26.099590: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-05-20 20:36:34.465769: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-05-20 20:36:34.465844: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-05-20 20:36:34.465877: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-05-20 20:36:34.466030: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1127 MB memory) -> physical GPU (device: 0, name: NVIDIA Tegra X1, pci bus id: 0000:00:00.0, compute capability: 5.3)
+1420/1420 [==============================] - 691s 487ms/step - loss: 0.0824 - acc: 0.2256 - val_loss: 0.0699 - val_acc: 0.2321
+
+Epoch 00001: val_loss improved from inf to 0.06989, saving model to model.h5
+Epoch 2/5
+1420/1420 [==============================] - 675s 475ms/step - loss: 0.0715 - acc: 0.2288 - val_loss: 0.0694 - val_acc: 0.2328
+
+Epoch 00002: val_loss improved from 0.06989 to 0.06937, saving model to model.h5
+Epoch 3/5
+1420/1420 [==============================] - 675s 476ms/step - loss: 0.0697 - acc: 0.2290 - val_loss: 0.0667 - val_acc: 0.2333
+
+Epoch 00003: val_loss improved from 0.06937 to 0.06666, saving model to model.h5
+Epoch 4/5
+1420/1420 [==============================] - 676s 476ms/step - loss: 0.0671 - acc: 0.2300 - val_loss: 0.0667 - val_acc: 0.2339
+
+Epoch 00004: val_loss did not improve from 0.06666
+Epoch 5/5
+1420/1420 [==============================] - 677s 477ms/step - loss: 0.0660 - acc: 0.2304 - val_loss: 0.0669 - val_acc: 0.2332
+
+Epoch 00005: val_loss did not improve from 0.06666
+dict_keys(['val_loss', 'loss', 'val_acc', 'acc'])
+Loss:
+[0.08232157391522621, 0.07145256773454382, 0.06970659134631513, 0.06706285586407305, 0.06601893942610047]
+Validation Loss:
+[0.06988582107890906, 0.06936594781393482, 0.06665738823798859, 0.06674584644189262, 0.06694120047025032]
+Accuracy:
+[0.22573802591593403, 0.2287914157484683, 0.2290996909203883, 0.23004653568425476, 0.23046490851614662]
