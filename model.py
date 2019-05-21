@@ -10,6 +10,7 @@ import sklearn
 from math import ceil
 from random import shuffle
 from normalization import Normalization
+import os
 
 class Model:
 
@@ -29,9 +30,15 @@ class Model:
             
         """
         
+        filenames = []
+        for root, dirs, files in os.walk("./data"):
+            for file in files:
+                if file.endswith("driving_log.csv"):
+                    filenames.append(os.path.join(root, file))
+                    
         samples = []
-        for i in range(0,3):
-            with open('./data/track'+str(i)+'/driving_log.csv') as csvfile:
+        for filename in filenames:
+            with open(filename) as csvfile:
                 reader = csv.reader(csvfile)
                 for sample in reader:
                     samples.append(sample)
