@@ -34,7 +34,7 @@ Saved `model.h5` model can be used with drive.py to make predictions on individu
 > python3 drive.py model.h5
 ```
 
-**Note**: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
+**Note**: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add `export LANG=en_US.utf8` to the bashrc file.
 
 #### Saving a video of the autonomous agent
 
