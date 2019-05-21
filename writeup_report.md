@@ -57,7 +57,7 @@ My model consists of a convolution neural network with 5x5 and 3x3 filter sizes 
 
 The model includes RELU layers to introduce nonlinearity (code line 124-128), and the data is normalized in the model using custom Keras layer (code line 121). 
 
-Custom Normalization layer was introduced as a replacement for Keras Lambda layer in order to enable save and read model.h5 on diffrent platforms.
+Custom Normalization layer was introduced as a replacement for Keras Lambda layer in order to enable saving and reading model.h5 on different platforms.
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -71,11 +71,11 @@ The model used an adam optimizer, so the learning rate was not tuned manually ([
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. It was sufficiemt to use center lane driving data. 
+Training data was chosen to keep the vehicle driving on the road. It was sufficient to use center lane driving data. 
 
 For details about how I created the training data, see the next section. 
 
-### Model Architecture and Training Strategy
+### Model Architecture and Training Documentation
 
 #### 1. Solution Design Approach
 
@@ -85,11 +85,11 @@ My first step was to use a convolution neural network model similar to the LeNet
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I replaced the model with more poweful architecture from [nVidia](https://devblogs.nvidia.com/deep-learning-self-driving-cars/).
+To combat the overfitting, I replaced the model with more powerful architecture from [nVidia](https://devblogs.nvidia.com/deep-learning-self-driving-cars/).
 
 Then I tunned the model architecture to fit project requirements.
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track1. Suprisigly it did not fell off the track2 which I considered to be much more difficult to learn. To improve the driving behavior on the track1 I have doubled the track1 training data set to meet the size of the track2 training data set (track2 is twice as long as track1). Unfortunatelly it did not help. At the end I realized that although track2 is more difficult learn than track1, track2 has simplier color scheme (it consists mostly from green and gray colors). I figured out that I forgot to convert images from BGR to RGB before training.
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track1. Surprisingly it did not fell off the track2 which I considered to be much more difficult to learn. To improve the driving behavior on the track1 I have doubled the track1 training data set to meet the size of the track2 training data set (track2 is twice as long as track1). Unfortunately it did not help. At the end I realized that although track2 is more difficult learn than track1, track2 has simpler color scheme (it consists mostly from green and gray colors). I figured out that I forgot to convert images from BGR to RGB before training.
 
 After implementing simple fix, the vehicle is able to drive autonomously around both tracks without leaving the road.
 
@@ -116,7 +116,7 @@ To augment the data set, I also flipped images and angles thinking that this wou
 | ![alt text][image6] | ![alt text][image9]  |
 
 
-After the collection process, I had 170304 number of data points. I then preprocessed this data by cropping the images by (55,25) pixes from (top,bottom) and normalizing with `x/127.5 - 1.0` formula.
+After the collection process, I had 170304 number of data points. I then preprocessed this data by cropping the images by (55,25) pixes from (top,bottom) and normalizing with formula `x/127.5 - 1.0`.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
