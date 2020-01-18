@@ -18,11 +18,58 @@ from keras import __version__ as keras_version
 
 from normalization import Normalization
 
+import os
+
+from keras import backend as K
+from tensorflow.python.framework import graph_util
+from tensorflow.python.framework import graph_io
+import tensorflow as tf
+
+from openvino.inference_engine import IENetwork, IECore
+
 sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
+exec_net = None
+input_shape = None
 
+CPU_EXTENSION = "/opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so"
+def load_to_IE(model_xml):
+    global exec_net, input_shape
+    ### Load the Inference Engine API
+    plugin = IECore()
+
+    ### Load IR files into their related class
+    model_bin = os.path.splitext(model_xml)[0] + ".bin"
+    net = IENetwork(model=model_xml, weights=model_bin)
+
+    ### Add a CPU extension, if applicable.
+    plugin.add_extension(CPU_EXTENSION, "CPU")
+
+    ### Get the supported layers of the network
+    supported_layers = plugin.query_network(network=net, device_name="HETERO:MYRIAD,CPU")
+    ### Check for any unsupported layers, and let the user
+    ### know if anything is missing. Exit the program, if so.
+    unsupported_layers = [l for l in net.layers.keys() if l not in supported_layers]
+    if len(unsupported_layers) != 0:
+        print("Unsupported layers found: {}".format(unsupported_layers))
+        print("Check whether extensions are available to add to IECore.")
+        return
+
+    ### Load the network into the Inference Engine
+    try:
+        exec_net = plugin.load_network(net, "HETERO:MYRIAD,CPU")
+        print("Loading to VPU/CPU...")
+    except:
+        exec_net = plugin.load_network(net, "CPU")
+        print("Loading to CPU...")
+
+    print("IR successfully loaded into Inference Engine.")
+
+    input_blob = next(iter(net.inputs))
+
+    input_shape = net.inputs[input_blob].shape
 
 class SimplePIController:
     def __init__(self, Kp, Ki):
@@ -63,7 +110,22 @@ def telemetry(sid, data):
         imgString = data["image"]
         image = Image.open(BytesIO(base64.b64decode(imgString)))
         image_array = np.asarray(image)
-        steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+        if exec_net is None:
+            steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+        else:
+            image_array = image_array[55:-25,0:320]            
+            norm = Normalization()
+            image_array = norm.call(image_array)
+            image_array = image_array.transpose((2,0,1))
+            image_array = image_array.reshape(1, 3, input_shape[2], input_shape[3])
+            input_blob = next(iter(exec_net.inputs))
+            it = iter(exec_net.outputs)
+            output_blob = next(it)
+            for output_blob in it:
+                pass
+        
+            res = exec_net.infer({input_blob: image_array})
+            steering_angle = res[output_blob][0][0]
 
         throttle = controller.update(float(speed))
 
@@ -112,16 +174,19 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    # check that model Keras version is same as local Keras version
-    f = h5py.File(args.model, mode='r')
-    model_version = f.attrs.get('keras_version')
-    keras_version = str(keras_version).encode('utf8')
+    if (args.model.endswith('.h5')):
+        # check that model Keras version is same as local Keras version
+        f = h5py.File(args.model, mode='r')
+        model_version = f.attrs.get('keras_version')
+        keras_version = str(keras_version).encode('utf8')
 
-    if model_version != keras_version:
-        print('You are using Keras version ', keras_version,
-              ', but the model was built using ', model_version)
+        if model_version != keras_version:
+            print('You are using Keras version ', keras_version,
+                  ', but the model was built using ', model_version)
 
-    model = load_model(args.model, custom_objects={'Normalization': Normalization()})
+        model = load_model(args.model, custom_objects={'Normalization': Normalization()})
+    else:
+        load_to_IE(args.model)
 
     if args.image_folder != '':
         print("Creating image folder at {}".format(args.image_folder))
@@ -139,3 +204,26 @@ if __name__ == '__main__':
 
     # deploy as an eventlet WSGI server
     eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
+
+def export_keras_to_tf(input_model='model.h5', output_model='model.pb', num_output=1):
+    print('Loading Keras model: ', input_model)
+
+    keras_model = load_model(input_model, custom_objects={'Normalization': Normalization()})
+
+    print(keras_model.summary())
+
+    predictions = [None] * num_output
+    prediction_node_names = [None] * num_output
+
+    for i in range(num_output):
+        prediction_node_names[i] = 'output_node' + str(i)
+        predictions[i] = tf.identity(keras_model.outputs[i], 
+        name=prediction_node_names[i])
+
+    session = K.get_session()
+
+    constant_graph = graph_util.convert_variables_to_constants(session, 
+    session.graph.as_graph_def(), prediction_node_names)
+    infer_graph = graph_util.remove_training_nodes(constant_graph) 
+
+    graph_io.write_graph(infer_graph, '.', output_model, as_text=False)

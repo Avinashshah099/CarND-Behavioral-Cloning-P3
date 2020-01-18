@@ -1,0 +1,395 @@
+<?xml version="1.0" ?>
+<net batch="1" name="model" version="6">
+	<layers>
+		<layer id="0" name="conv2d_1/convolution/placeholder_port_0" precision="FP16" type="Input">
+			<output>
+				<port id="0">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>80</dim>
+					<dim>320</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="1" name="conv2d_1/convolution" precision="FP16" type="Convolution">
+			<data auto_pad="valid" dilations="1,1" group="1" kernel="5,5" output="24" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>80</dim>
+					<dim>320</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>24</dim>
+					<dim>38</dim>
+					<dim>158</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="0" size="3600"/>
+				<biases offset="3600" size="48"/>
+			</blobs>
+		</layer>
+		<layer id="2" name="conv2d_1/Relu" precision="FP16" type="ReLU">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>24</dim>
+					<dim>38</dim>
+					<dim>158</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>24</dim>
+					<dim>38</dim>
+					<dim>158</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="3" name="conv2d_2/convolution" precision="FP16" type="Convolution">
+			<data auto_pad="valid" dilations="1,1" group="1" kernel="5,5" output="36" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>24</dim>
+					<dim>38</dim>
+					<dim>158</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>36</dim>
+					<dim>17</dim>
+					<dim>77</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="3648" size="43200"/>
+				<biases offset="46848" size="72"/>
+			</blobs>
+		</layer>
+		<layer id="4" name="conv2d_2/Relu" precision="FP16" type="ReLU">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>36</dim>
+					<dim>17</dim>
+					<dim>77</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>36</dim>
+					<dim>17</dim>
+					<dim>77</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="5" name="conv2d_3/convolution" precision="FP16" type="Convolution">
+			<data auto_pad="valid" dilations="1,1" group="1" kernel="5,5" output="48" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>36</dim>
+					<dim>17</dim>
+					<dim>77</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>48</dim>
+					<dim>7</dim>
+					<dim>37</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="46920" size="86400"/>
+				<biases offset="133320" size="96"/>
+			</blobs>
+		</layer>
+		<layer id="6" name="conv2d_3/Relu" precision="FP16" type="ReLU">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>48</dim>
+					<dim>7</dim>
+					<dim>37</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>48</dim>
+					<dim>7</dim>
+					<dim>37</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="7" name="conv2d_4/convolution" precision="FP16" type="Convolution">
+			<data auto_pad="valid" dilations="1,1" group="1" kernel="3,3" output="64" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>48</dim>
+					<dim>7</dim>
+					<dim>37</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>5</dim>
+					<dim>35</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="133416" size="55296"/>
+				<biases offset="188712" size="128"/>
+			</blobs>
+		</layer>
+		<layer id="8" name="conv2d_4/Relu" precision="FP16" type="ReLU">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>5</dim>
+					<dim>35</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>5</dim>
+					<dim>35</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="9" name="conv2d_5/convolution" precision="FP16" type="Convolution">
+			<data auto_pad="valid" dilations="1,1" group="1" kernel="3,3" output="64" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>5</dim>
+					<dim>35</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="188840" size="73728"/>
+				<biases offset="262568" size="128"/>
+			</blobs>
+		</layer>
+		<layer id="10" name="conv2d_5/Relu" precision="FP16" type="ReLU">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="11" name="conv2d_5/Relu/Transpose" precision="FP16" type="Permute">
+			<data order="0,2,3,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="12" name="flatten_1/stack_9093/Concat_/Output_0/Data__const" precision="I32" type="Const">
+			<output>
+				<port id="1">
+					<dim>2</dim>
+				</port>
+			</output>
+			<blobs>
+				<custom offset="262696" size="8"/>
+			</blobs>
+		</layer>
+		<layer id="13" name="flatten_1/Reshape" precision="FP16" type="Reshape">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>33</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2">
+					<dim>1</dim>
+					<dim>6336</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="14" name="dense_1/MatMul" precision="FP16" type="FullyConnected">
+			<data out-size="100"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>6336</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="262704" size="1267200"/>
+				<biases offset="1529904" size="200"/>
+			</blobs>
+		</layer>
+		<layer id="15" name="dense_2/MatMul" precision="FP16" type="FullyConnected">
+			<data out-size="50"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>50</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="1530104" size="10000"/>
+				<biases offset="1540104" size="100"/>
+			</blobs>
+		</layer>
+		<layer id="16" name="dense_3/MatMul" precision="FP16" type="FullyConnected">
+			<data out-size="10"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>50</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>10</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="1540204" size="1000"/>
+				<biases offset="1541204" size="20"/>
+			</blobs>
+		</layer>
+		<layer id="17" name="dense_4/MatMul" precision="FP16" type="FullyConnected">
+			<data out-size="1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>10</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3">
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+			<blobs>
+				<weights offset="1541224" size="20"/>
+				<biases offset="1541244" size="2"/>
+			</blobs>
+		</layer>
+	</layers>
+	<edges>
+		<edge from-layer="0" from-port="0" to-layer="1" to-port="0"/>
+		<edge from-layer="1" from-port="3" to-layer="2" to-port="0"/>
+		<edge from-layer="2" from-port="1" to-layer="3" to-port="0"/>
+		<edge from-layer="3" from-port="3" to-layer="4" to-port="0"/>
+		<edge from-layer="4" from-port="1" to-layer="5" to-port="0"/>
+		<edge from-layer="5" from-port="3" to-layer="6" to-port="0"/>
+		<edge from-layer="6" from-port="1" to-layer="7" to-port="0"/>
+		<edge from-layer="7" from-port="3" to-layer="8" to-port="0"/>
+		<edge from-layer="8" from-port="1" to-layer="9" to-port="0"/>
+		<edge from-layer="9" from-port="3" to-layer="10" to-port="0"/>
+		<edge from-layer="10" from-port="1" to-layer="11" to-port="0"/>
+		<edge from-layer="11" from-port="1" to-layer="13" to-port="0"/>
+		<edge from-layer="12" from-port="1" to-layer="13" to-port="1"/>
+		<edge from-layer="13" from-port="2" to-layer="14" to-port="0"/>
+		<edge from-layer="14" from-port="3" to-layer="15" to-port="0"/>
+		<edge from-layer="15" from-port="3" to-layer="16" to-port="0"/>
+		<edge from-layer="16" from-port="3" to-layer="17" to-port="0"/>
+	</edges>
+	<meta_data>
+		<MO_version value="2019.3.0-408-gac8584cb7"/>
+		<cli_parameters>
+			<batch value="1"/>
+			<blobs_as_inputs value="False"/>
+			<data_type value="FP16"/>
+			<disable_nhwc_to_nchw value="False"/>
+			<disable_resnet_optimization value="False"/>
+			<enable_concat_optimization value="False"/>
+			<extensions value="DIR"/>
+			<framework value="tf"/>
+			<freeze_placeholder_with_value value="{}"/>
+			<generate_experimental_IR_V10 value="False"/>
+			<input value="conv2d_1/convolution"/>
+			<input_model value="DIR/model.pb"/>
+			<input_model_is_text value="False"/>
+			<keep_quantize_ops_in_IR value="False"/>
+			<keep_shape_ops value="False"/>
+			<log_level value="ERROR"/>
+			<mean_scale_values value="{}"/>
+			<mean_values value="()"/>
+			<move_to_preprocess value="False"/>
+			<output_dir value="DIR"/>
+			<placeholder_shapes value="{'conv2d_1/convolution': None}"/>
+			<reverse_input_channels value="False"/>
+			<scale_values value="()"/>
+			<silent value="False"/>
+			<steps value="False"/>
+			<version value="False"/>
+			<unset unset_cli_parameters="disable_fusing, disable_gfusing, finegrain_fusing, generate_deprecated_IR_V2, input_checkpoint, input_meta_graph, input_shape, model_name, output, saved_model_dir, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_operation_patterns, tensorflow_subgraph_patterns, tensorflow_use_custom_operations_config"/>
+		</cli_parameters>
+	</meta_data>
+</net>
